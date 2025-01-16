@@ -6,12 +6,12 @@ exports.registerUser = async (req, res) => {
         const { username, email, password, phone } = req.body;
 
         // Check if email already exists
-        const checkEmail = await UersModels.findOne({ email: email });
-        if (checkEmail) {
+        const checkPhone = await UersModels.findOne({ phone: phone });
+        if (checkPhone) {
             return res.status(400).json({
                 status: 400,
-                message: 'ອີເມວນີ້ມີໃນລະບົບແລ້ວ',
-                data: email
+                message: 'ເບີໂທນີ້ມີໃນລະບົບແລ້ວ',
+                data: phone
             });
         }
 
