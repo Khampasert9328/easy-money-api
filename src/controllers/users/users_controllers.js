@@ -9,9 +9,9 @@ exports.registerUser = async (req, res) => {
         const checkPhone = await UersModels.findOne({ phone: phone });
         if (checkPhone) {
             return res.status(400).json({
-                status: 400,
+                status: 404,
                 message: 'ເບີໂທນີ້ມີໃນລະບົບແລ້ວ',
-                phone: phone
+                data: phone
             });
         }
 
@@ -48,7 +48,7 @@ exports.login = async(req,res)=>{
         const checkPhone = await UersModels.findOne({ phone: phone });
         if (!checkPhone) {
             return res.status(404).json({
-                status: 400,
+                status: 404,
                 message: 'ເບີໂທບໍ່ຖືກຕ້ອງ',
                 data: phone
             });
@@ -56,7 +56,7 @@ exports.login = async(req,res)=>{
         const checkPassword = await checkPhone.checkPassword(password);
         if (!checkPassword) {
             return res.status(404).json({
-                status: 402,
+                status: 404,
                 message: 'ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ',
                 data: password
             });
