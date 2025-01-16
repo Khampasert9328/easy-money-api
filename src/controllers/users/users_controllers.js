@@ -44,16 +44,16 @@ exports.registerUser = async (req, res) => {
 
 exports.login = async(req,res)=>{
     try {
-        const {email, password} = req.body;
-        const checkEmail = await UersModels.findOne({ email: email });
-        if (!checkEmail) {
+        const {phone, password} = req.body;
+        const checkPhone = await UersModels.findOne({ phone: phone });
+        if (!checkPhone) {
             return res.status(404).json({
                 status: 404,
                 message: 'ອີເມວບໍ່ຖືກຕ້ອງ',
                 data: email
             });
         }
-        const checkPassword = await checkEmail.checkPassword(password);
+        const checkPassword = await checkPhone.checkPassword(password);
         if (!checkPassword) {
             return res.status(404).json({
                 status: 404,
@@ -62,7 +62,7 @@ exports.login = async(req,res)=>{
             });
 
         }
-        const token = await jwt.sign({id:checkEmail._id, role:checkEmail.role},process.env.JWT_TOKEN,{expiresIn:"1 day"})
+        const token = await jwt.sign({id:checkPhone._id, role:checkPhone.role},process.env.JWT_TOKEN,{expiresIn:"1 day"})
         const tokenExpire = jwt.decode(token);
         res.status(201).json({
             status:true,
