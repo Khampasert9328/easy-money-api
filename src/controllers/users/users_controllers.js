@@ -48,15 +48,15 @@ exports.login = async(req,res)=>{
         const checkPhone = await UersModels.findOne({ phone: phone });
         if (!checkPhone) {
             return res.status(404).json({
-                status: 404,
-                message: 'ອີເມວບໍ່ຖືກຕ້ອງ',
-                data: email
+                status: 400,
+                message: 'ເບີໂທບໍ່ຖືກຕ້ອງ',
+                data: phone
             });
         }
         const checkPassword = await checkPhone.checkPassword(password);
         if (!checkPassword) {
             return res.status(404).json({
-                status: 404,
+                status: 402,
                 message: 'ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ',
                 data: password
             });
